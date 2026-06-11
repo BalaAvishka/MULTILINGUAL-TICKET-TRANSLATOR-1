@@ -52,7 +52,8 @@ def get_single_ticket(ticket_id: str):
         raise HTTPException(status_code=404, detail="Ticket not found")
     return ticket
 
-# Serve frontend
-frontend_dir = os.path.join(os.path.dirname(__file__), "..", "frontend")
-if os.path.exists(frontend_dir):
-    app.mount("/", StaticFiles(directory=frontend_dir, html=True), name="static")
+# Serve frontend from backend/static/ (works on Render and locally)
+from pathlib import Path
+static_dir = Path(__file__).parent / "static"
+if static_dir.exists():
+    app.mount("/", StaticFiles(directory=str(static_dir), html=True), name="static")
