@@ -1,254 +1,169 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Multilingual Ticket Translator</title>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: system-ui, sans-serif; background: #f4f6fa; color: #1a1a2e; min-height: 100vh; }
-  header { background: #1a1a2e; color: #fff; padding: 1rem 2rem; display: flex; align-items: center; gap: 1rem; }
-  header h1 { font-size: 1.3rem; font-weight: 600; }
-  header span { background: #4f8ef7; color: #fff; font-size: 12px; padding: 3px 10px; border-radius: 20px; }
-  .main { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-  .card { background: #fff; border-radius: 12px; border: 0.5px solid #e0e0e8; padding: 1.5rem; }
-  .card h2 { font-size: 1rem; font-weight: 600; color: #1a1a2e; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; }
-  .badge { font-size: 11px; background: #eef2ff; color: #4f46e5; padding: 2px 8px; border-radius: 20px; font-weight: 500; }
-  textarea { width: 100%; border: 1px solid #e0e0e8; border-radius: 8px; padding: 0.75rem; font-size: 14px; resize: vertical; min-height: 120px; outline: none; transition: border 0.2s; }
-  textarea:focus { border-color: #4f8ef7; }
-  button { background: #1a1a2e; color: #fff; border: none; border-radius: 8px; padding: 0.6rem 1.4rem; font-size: 14px; cursor: pointer; font-weight: 500; transition: background 0.2s; }
-  button:hover { background: #2d2d50; }
-  button:disabled { background: #aaa; cursor: not-allowed; }
-  .secondary-btn { background: #4f8ef7; }
-  .secondary-btn:hover { background: #3b7de0; }
-  .lang-tag { display: inline-flex; align-items: center; gap: 6px; background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; border-radius: 6px; padding: 3px 10px; font-size: 12px; font-weight: 600; margin-bottom: 0.5rem; }
-  .result-box { background: #f8f9fc; border: 1px solid #e0e0e8; border-radius: 8px; padding: 1rem; font-size: 14px; line-height: 1.7; color: #1a1a2e; min-height: 80px; }
-  .ticket-row { border: 1px solid #e0e0e8; border-radius: 8px; padding: 0.9rem 1rem; margin-bottom: 0.75rem; cursor: pointer; transition: border 0.2s, background 0.2s; }
-  .ticket-row:hover { background: #f0f4ff; border-color: #4f8ef7; }
-  .ticket-row.selected { border-color: #4f8ef7; background: #eef4ff; }
-  .ticket-id { font-size: 11px; color: #888; font-weight: 600; margin-bottom: 2px; }
-  .ticket-preview { font-size: 13px; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .empty-state { text-align: center; color: #aaa; font-size: 14px; padding: 2rem; }
-  .status-row { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #555; margin-top: 0.5rem; }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: #4f8ef7; display: inline-block; }
-  .dot.ok { background: #22c55e; }
-  .agent-steps { margin-top: 0.5rem; }
-  .step-chip { display: inline-block; font-size: 11px; background: #f3f4f6; color: #555; border-radius: 20px; padding: 2px 9px; margin-right: 5px; margin-bottom: 4px; border: 1px solid #e0e0e8; }
-  .full-width { grid-column: 1 / -1; }
-  .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid #fff; border-top-color: transparent; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: -3px; margin-right: 6px; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .reply-area { border-top: 1px solid #e0e0e8; margin-top: 1rem; padding-top: 1rem; }
-  select { border: 1px solid #e0e0e8; border-radius: 8px; padding: 0.5rem 0.75rem; font-size: 14px; background: #fff; cursor: pointer; }
-  .sample-btn { background: transparent; color: #4f8ef7; border: 1px solid #4f8ef7; font-size: 12px; padding: 4px 10px; margin-right: 6px; margin-bottom: 6px; }
-  .sample-btn:hover { background: #eef4ff; }
-</style>
+    <title>Multilingual Ticket Translator</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f4f4;
+            margin:0;
+        }
+
+        .navbar{
+            background:#1e3a8a;
+            color:white;
+            padding:15px;
+            text-align:center;
+            font-size:24px;
+        }
+
+        .container{
+            width:90%;
+            margin:auto;
+            padding:20px;
+        }
+
+        .card{
+            background:white;
+            padding:20px;
+            margin-bottom:20px;
+            border-radius:10px;
+            box-shadow:0px 2px 5px rgba(0,0,0,0.2);
+        }
+
+        textarea{
+            width:100%;
+            height:120px;
+            padding:10px;
+        }
+
+        select,button{
+            padding:10px;
+            margin-top:10px;
+        }
+
+        button{
+            background:#2563eb;
+            color:white;
+            border:none;
+            cursor:pointer;
+        }
+
+        .dashboard{
+            display:flex;
+            gap:20px;
+        }
+
+        .box{
+            flex:1;
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            text-align:center;
+        }
+    </style>
 </head>
+
 <body>
 
-<header>
-  <div>🌐</div>
-  <h1>Multilingual Ticket Translator</h1>
-  <span>AI Agent</span>
-</header>
+<div class="navbar">
+    Multilingual Ticket Translator
+</div>
 
-<div class="main">
+<div class="container">
 
-  <!-- LEFT: Submit Ticket -->
-  <div class="card">
-    <h2>📥 Submit a Ticket <span class="badge">Agent Loop</span></h2>
-
-    <div style="margin-bottom: 0.75rem;">
-      <p style="font-size:12px; color:#888; margin-bottom:0.4rem;">Try a sample:</p>
-      <button class="sample-btn secondary-btn" onclick="setSample('hi')">🇮🇳 Hindi</button>
-      <button class="sample-btn secondary-btn" onclick="setSample('ta')">🇮🇳 Tamil</button>
-      <button class="sample-btn secondary-btn" onclick="setSample('fr')">🇫🇷 French</button>
-      <button class="sample-btn secondary-btn" onclick="setSample('de')">🇩🇪 German</button>
-      <button class="sample-btn secondary-btn" onclick="setSample('ar')">🇸🇦 Arabic</button>
-    </div>
-
-    <textarea id="ticketInput" placeholder="Paste or type a support ticket in any language..."></textarea>
-
-    <div style="margin-top:0.75rem; display:flex; gap:0.5rem; align-items:center;">
-      <button id="translateBtn" onclick="submitTicket()">Translate Ticket</button>
-      <span id="submitStatus" style="font-size:13px; color:#888;"></span>
-    </div>
-
-    <div id="translateResult" style="margin-top:1rem; display:none;">
-      <div id="langTag" class="lang-tag"></div>
-      <p style="font-size:12px; color:#888; margin-bottom:4px;">English Translation</p>
-      <div id="englishText" class="result-box"></div>
-      <div class="agent-steps" id="agentSteps"></div>
-    </div>
-  </div>
-
-  <!-- RIGHT: Ticket Queue -->
-  <div class="card">
-    <h2>📋 Ticket Queue <span class="badge" id="queueCount">0 tickets</span></h2>
-    <div id="ticketList">
-      <div class="empty-state">No tickets yet. Submit one to get started.</div>
-    </div>
-  </div>
-
-  <!-- BOTTOM: Engineer Reply Panel -->
-  <div class="card full-width" id="replyPanel" style="display:none;">
-    <h2>✍️ Engineer Reply <span class="badge">Bidirectional Translation</span></h2>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
-      <div>
-        <p style="font-size:12px; color:#888; margin-bottom:4px;">Original Ticket (<span id="replyLang"></span>)</p>
-        <div id="replyOriginal" class="result-box" style="min-height:100px;"></div>
-        <p style="font-size:12px; color:#888; margin-top:0.75rem; margin-bottom:4px;">English Version</p>
-        <div id="replyEnglish" class="result-box" style="min-height:80px;"></div>
-      </div>
-      <div class="reply-area" style="border:none; margin:0; padding:0;">
-        <p style="font-size:12px; color:#888; margin-bottom:4px;">Write your reply in English:</p>
-        <textarea id="engineerReply" placeholder="Type your reply to the customer in English..." style="min-height:120px;"></textarea>
-        <div style="margin-top:0.75rem; display:flex; gap:0.5rem; align-items:center;">
-          <button class="secondary-btn" id="replyBtn" onclick="sendReply()">Send Reply</button>
-          <span id="replyStatus" style="font-size:13px; color:#888;"></span>
+    <div class="dashboard">
+        <div class="box">
+            <h3>Total Tickets</h3>
+            <h2>120</h2>
         </div>
-        <div id="translatedReply" style="margin-top:1rem; display:none;">
-          <p style="font-size:12px; color:#888; margin-bottom:4px;">Reply sent to customer (translated back):</p>
-          <div id="translatedReplyText" class="result-box" style="background:#f0fdf4; border-color:#bbf7d0;"></div>
+
+        <div class="box">
+            <h3>Translated</h3>
+            <h2>98</h2>
         </div>
-      </div>
+
+        <div class="box">
+            <h3>High Priority</h3>
+            <h2>15</h2>
+        </div>
     </div>
-  </div>
+
+    <div class="card">
+        <h2>Submit Ticket</h2>
+
+        <textarea placeholder="Enter customer ticket..."></textarea>
+
+        <br><br>
+
+        <label>Source Language:</label>
+        <select>
+            <option>Tamil</option>
+            <option>Hindi</option>
+            <option>French</option>
+            <option>Spanish</option>
+        </select>
+
+        <label>Target Language:</label>
+        <select>
+            <option>English</option>
+        </select>
+
+        <br><br>
+
+        <button>Translate Ticket</button>
+    </div>
+
+    <div class="card">
+        <h2>Translation Result</h2>
+
+        <p>
+            Original Ticket:
+            "எனது இணைய சேவை செயல்படவில்லை"
+        </p>
+
+        <p>
+            Translated:
+            "My internet service is not working."
+        </p>
+    </div>
+
+    <div class="card">
+        <h2>AI Analysis</h2>
+
+        <p><b>Sentiment:</b> Negative</p>
+        <p><b>Priority:</b> High</p>
+        <p><b>Category:</b> Technical Support</p>
+    </div>
+
+    <div class="card">
+        <h2>Agent Dashboard</h2>
+
+        <table border="1" width="100%">
+            <tr>
+                <th>Ticket ID</th>
+                <th>Language</th>
+                <th>Status</th>
+                <th>Priority</th>
+            </tr>
+
+            <tr>
+                <td>101</td>
+                <td>Tamil</td>
+                <td>Translated</td>
+                <td>High</td>
+            </tr>
+
+            <tr>
+                <td>102</td>
+                <td>Hindi</td>
+                <td>Pending</td>
+                <td>Medium</td>
+            </tr>
+        </table>
+    </div>
 
 </div>
 
-<script>
-const API = '';
-let tickets = [];
-let selectedTicketId = null;
-
-const SAMPLES = {
-  hi: 'मेरा लॉगिन काम नहीं कर रहा है। मैं dashboard तक नहीं पहुँच पा रहा। कृपया मेरी मदद करें। error 404 आ रहा है।',
-  ta: 'என் கணக்கில் login செய்ய முடியவில்லை. dashboard திறக்கவில்லை. தயவுசெய்து உதவுங்கள். API பிழை காட்டுகிறது.',
-  fr: "Je ne peux pas me connecter à mon compte. Le dashboard affiche une erreur 404. Pouvez-vous m'aider s'il vous plaît?",
-  de: 'Ich kann mich nicht in mein Konto einloggen. Das Dashboard zeigt einen error 404 an. Bitte helfen Sie mir.',
-  ar: 'لا أستطيع تسجيل الدخول إلى حسابي. لوحة التحكم تعرض خطأ 404. أرجو المساعدة.',
-};
-
-function setSample(lang) {
-  document.getElementById('ticketInput').value = SAMPLES[lang];
-}
-
-async function submitTicket() {
-  const text = document.getElementById('ticketInput').value.trim();
-  if (!text) return alert('Please enter a ticket.');
-  const btn = document.getElementById('translateBtn');
-  btn.innerHTML = '<span class="spinner"></span>Translating...';
-  btn.disabled = true;
-  document.getElementById('submitStatus').textContent = '';
-
-  try {
-    const res = await fetch(`${API}/translate`, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({text})
-    });
-    if (!res.ok) throw new Error(await res.text());
-    const data = await res.json();
-
-    document.getElementById('translateResult').style.display = 'block';
-    document.getElementById('langTag').innerHTML = `🌐 Detected: <strong>${data.original_lang.toUpperCase()}</strong>`;
-    document.getElementById('englishText').textContent = data.english_text;
-
-    const steps = data.agent_steps || [];
-    document.getElementById('agentSteps').innerHTML = steps.map(s =>
-      `<span class="step-chip">✓ ${s.step}: ${s.result}</span>`
-    ).join('');
-
-    document.getElementById('submitStatus').textContent = `✓ Ticket #${data.ticket_id} created`;
-    tickets.unshift(data);
-    renderQueue();
-    selectTicket(data.ticket_id);
-  } catch(e) {
-    document.getElementById('submitStatus').textContent = '❌ ' + e.message;
-  } finally {
-    btn.innerHTML = 'Translate Ticket';
-    btn.disabled = false;
-  }
-}
-
-function renderQueue() {
-  const el = document.getElementById('ticketList');
-  document.getElementById('queueCount').textContent = `${tickets.length} ticket${tickets.length !== 1 ? 's' : ''}`;
-  if (!tickets.length) {
-    el.innerHTML = '<div class="empty-state">No tickets yet.</div>';
-    return;
-  }
-  el.innerHTML = tickets.map(t => `
-    <div class="ticket-row ${t.ticket_id === selectedTicketId ? 'selected' : ''}" onclick="selectTicket('${t.ticket_id}')">
-      <div class="ticket-id">Ticket #${t.ticket_id} &nbsp;·&nbsp; Lang: ${t.original_lang.toUpperCase()}</div>
-      <div class="ticket-preview">${t.english_text}</div>
-    </div>
-  `).join('');
-}
-
-function selectTicket(id) {
-  selectedTicketId = id;
-  const t = tickets.find(x => x.ticket_id === id);
-  if (!t) return;
-  renderQueue();
-
-  const panel = document.getElementById('replyPanel');
-  panel.style.display = '';
-  document.getElementById('replyLang').textContent = t.original_lang.toUpperCase();
-  document.getElementById('replyOriginal').textContent = t.original_text;
-  document.getElementById('replyEnglish').textContent = t.english_text;
-  document.getElementById('engineerReply').value = '';
-  document.getElementById('translatedReply').style.display = 'none';
-  document.getElementById('replyStatus').textContent = '';
-
-  if (t.engineer_reply_original) {
-    document.getElementById('translatedReply').style.display = '';
-    document.getElementById('translatedReplyText').textContent = t.engineer_reply_original;
-  }
-}
-
-async function sendReply() {
-  const reply = document.getElementById('engineerReply').value.trim();
-  if (!reply) return alert('Please write a reply first.');
-  const btn = document.getElementById('replyBtn');
-  btn.innerHTML = '<span class="spinner"></span>Translating...';
-  btn.disabled = true;
-
-  try {
-    const res = await fetch(`${API}/reply`, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ticket_id: selectedTicketId, reply})
-    });
-    if (!res.ok) throw new Error(await res.text());
-    const data = await res.json();
-
-    const idx = tickets.findIndex(t => t.ticket_id === selectedTicketId);
-    if (idx >= 0) {
-      tickets[idx].engineer_reply_english = reply;
-      tickets[idx].engineer_reply_original = data.translated_reply;
-    }
-
-    document.getElementById('translatedReply').style.display = '';
-    document.getElementById('translatedReplyText').textContent = data.translated_reply;
-    document.getElementById('replyStatus').textContent = `✓ Reply sent in ${data.original_lang.toUpperCase()}`;
-  } catch(e) {
-    document.getElementById('replyStatus').textContent = '❌ ' + e.message;
-  } finally {
-    btn.innerHTML = 'Send Reply';
-    btn.disabled = false;
-  }
-}
-
-(async function loadTickets() {
-  try {
-    const res = await fetch(`${API}/tickets`);
-    if (res.ok) {
-      tickets = await res.json();
-      renderQueue();
-    }
-  } catch(e) {}
-})();
-</script>
 </body>
 </html>
