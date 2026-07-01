@@ -72,4 +72,4 @@ pytest test_translator.py -v
 
 ## Deployment (Render.com — Free)
 
-See deployment section in the submission docs.
+https://multilingual-ticket-translator-1-nivl.onrender.com
